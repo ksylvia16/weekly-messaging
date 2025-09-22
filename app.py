@@ -1,7 +1,3 @@
-
-# ─────────────────────────────────────────────────────────────────────────────
-# app.py  (Streamlit app) — TRACK-FIRST SELECTION, uses your existing date logic
-# ─────────────────────────────────────────────────────────────────────────────
 import os
 import re
 from datetime import datetime, timedelta
@@ -27,7 +23,6 @@ from config import (
     LAB_TITLE_NORMALIZATION,
 )
 
-# ✅ Use your proven parser from the other app
 from functions import clean_and_parse_date
 
 # ==============================
@@ -223,7 +218,7 @@ with st.sidebar:
     st.header("📂 Choose a Track")
     selected_track = st.selectbox("Track", [""] + local_tracks)
     st.write("")
-    # Keep Google toggle behavior consistent with your other app
+    # Keep Google toggle behavior consistent
     if "prev_selected_track" not in st.session_state:
         st.session_state.prev_selected_track = ""
     if selected_track != st.session_state.prev_selected_track:
@@ -255,7 +250,7 @@ else:
         if os.path.exists(csv_path):
             df_tmp = pd.read_csv(csv_path)
             df_tmp["section"] = bn
-            # Use your cleaner immediately on the raw date col
+            # Use cleaner immediately on the raw date col
             if "date" in df_tmp.columns:
                 df_tmp["date"] = df_tmp["date"].apply(lambda x: clean_and_parse_date(x))
             frames.append(df_tmp)
